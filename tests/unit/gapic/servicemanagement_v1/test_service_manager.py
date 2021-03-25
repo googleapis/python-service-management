@@ -25,7 +25,7 @@ import pytest
 from proto.marshal.rules.dates import DurationRule, TimestampRule
 
 from google import auth
-from google.api import auth_pb2 as auth  # type: ignore
+from google.api import auth_pb2 as ga_auth  # type: ignore
 from google.api import backend_pb2 as backend  # type: ignore
 from google.api import billing_pb2 as billing  # type: ignore
 from google.api import context_pb2 as context  # type: ignore
