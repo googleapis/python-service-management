@@ -1614,6 +1614,7 @@ class ServiceManagerClient(metaclass=ServiceManagerClientMeta):
                 Operation payload for EnableService method.
 
         """
+        warnings.warn("enable_service is deprecated", warnings.DeprecationWarning)
         # Create or coerce a protobuf request object.
         # Sanity check: If we got a request object, we should *not* have
         # gotten any keyword arguments that map to the request.
@@ -1715,6 +1716,7 @@ class ServiceManagerClient(metaclass=ServiceManagerClientMeta):
                 Operation payload for DisableService method.
 
         """
+        warnings.warn("disable_service is deprecated", warnings.DeprecationWarning)
         # Create or coerce a protobuf request object.
         # Sanity check: If we got a request object, we should *not* have
         # gotten any keyword arguments that map to the request.
