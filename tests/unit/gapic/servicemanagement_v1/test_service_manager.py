@@ -4611,7 +4611,6 @@ def test_service_manager_transport_auth_adc(transport_class):
     [
         transports.ServiceManagerGrpcTransport,
         transports.ServiceManagerGrpcAsyncIOTransport,
-        transports.ServiceManagerRestTransport,
     ],
 )
 def test_service_manager_transport_auth_gdch_credentials(transport_class):
