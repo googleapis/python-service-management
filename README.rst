@@ -3,7 +3,7 @@ Python Client for Service Management API API
 
 |stable| |pypi| |versions|
 
-`Service Management API API`_: 
+`Service Management API API`_: is a foundational platform for creating, managing, securing, and consuming APIs and services across organizations. It is used by Google APIs, Cloud APIs, Cloud Endpoints, and API Gateway. Service Infrastructure provides a wide range of features to service consumers and service producers, including authentication, authorization, auditing, rate limiting, analytics, billing, logging, and monitoring.
 
 - `Client Library Documentation`_
 - `Product Documentation`_
