@@ -27,6 +27,7 @@ import math
 from google.api import auth_pb2  # type: ignore
 from google.api import backend_pb2  # type: ignore
 from google.api import billing_pb2  # type: ignore
+from google.api import client_pb2  # type: ignore
 from google.api import context_pb2  # type: ignore
 from google.api import control_pb2  # type: ignore
 from google.api import documentation_pb2  # type: ignore
