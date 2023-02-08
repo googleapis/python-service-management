@@ -14,25 +14,27 @@
 # limitations under the License.
 #
 
-from google.auth.transport.requests import AuthorizedSession  # type: ignore
-import json  # type: ignore
-import grpc  # type: ignore
-from google.auth.transport.grpc import SslCredentials  # type: ignore
-from google.auth import credentials as ga_credentials  # type: ignore
-from google.api_core import exceptions as core_exceptions
-from google.api_core import retry as retries
-from google.api_core import rest_helpers
-from google.api_core import rest_streaming
-from google.api_core import path_template
-from google.api_core import gapic_v1
-
-from google.protobuf import json_format
-from google.api_core import operations_v1
-from requests import __version__ as requests_version
 import dataclasses
+import json  # type: ignore
 import re
 from typing import Callable, Dict, List, Optional, Sequence, Tuple, Union
 import warnings
+
+from google.api_core import (
+    gapic_v1,
+    operations_v1,
+    path_template,
+    rest_helpers,
+    rest_streaming,
+)
+from google.api_core import exceptions as core_exceptions
+from google.api_core import retry as retries
+from google.auth import credentials as ga_credentials  # type: ignore
+from google.auth.transport.grpc import SslCredentials  # type: ignore
+from google.auth.transport.requests import AuthorizedSession  # type: ignore
+from google.protobuf import json_format
+import grpc  # type: ignore
+from requests import __version__ as requests_version
 
 try:
     OptionalRetry = Union[retries.Retry, gapic_v1.method._MethodDefault]
@@ -41,12 +43,12 @@ except AttributeError:  # pragma: NO COVER
 
 
 from google.api import service_pb2  # type: ignore
-from google.cloud.servicemanagement_v1.types import resources
-from google.cloud.servicemanagement_v1.types import servicemanager
 from google.longrunning import operations_pb2  # type: ignore
 
-from .base import ServiceManagerTransport, DEFAULT_CLIENT_INFO as BASE_DEFAULT_CLIENT_INFO
+from google.cloud.servicemanagement_v1.types import resources, servicemanager
 
+from .base import DEFAULT_CLIENT_INFO as BASE_DEFAULT_CLIENT_INFO
+from .base import ServiceManagerTransport
 
 DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
     gapic_version=BASE_DEFAULT_CLIENT_INFO.gapic_version,
@@ -179,7 +181,12 @@ class ServiceManagerRestInterceptor:
 
 
     """
-    def pre_create_service(self, request: servicemanager.CreateServiceRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.CreateServiceRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_create_service(
+        self,
+        request: servicemanager.CreateServiceRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.CreateServiceRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for create_service
 
         Override in a subclass to manipulate the request or metadata
@@ -187,7 +194,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_create_service(self, response: operations_pb2.Operation) -> operations_pb2.Operation:
+    def post_create_service(
+        self, response: operations_pb2.Operation
+    ) -> operations_pb2.Operation:
         """Post-rpc interceptor for create_service
 
         Override in a subclass to manipulate the response
@@ -195,7 +204,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_create_service_config(self, request: servicemanager.CreateServiceConfigRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.CreateServiceConfigRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_create_service_config(
+        self,
+        request: servicemanager.CreateServiceConfigRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.CreateServiceConfigRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for create_service_config
 
         Override in a subclass to manipulate the request or metadata
@@ -203,7 +217,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_create_service_config(self, response: service_pb2.Service) -> service_pb2.Service:
+    def post_create_service_config(
+        self, response: service_pb2.Service
+    ) -> service_pb2.Service:
         """Post-rpc interceptor for create_service_config
 
         Override in a subclass to manipulate the response
@@ -211,7 +227,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_create_service_rollout(self, request: servicemanager.CreateServiceRolloutRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.CreateServiceRolloutRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_create_service_rollout(
+        self,
+        request: servicemanager.CreateServiceRolloutRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.CreateServiceRolloutRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for create_service_rollout
 
         Override in a subclass to manipulate the request or metadata
@@ -219,7 +240,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_create_service_rollout(self, response: operations_pb2.Operation) -> operations_pb2.Operation:
+    def post_create_service_rollout(
+        self, response: operations_pb2.Operation
+    ) -> operations_pb2.Operation:
         """Post-rpc interceptor for create_service_rollout
 
         Override in a subclass to manipulate the response
@@ -227,7 +250,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_delete_service(self, request: servicemanager.DeleteServiceRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.DeleteServiceRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_delete_service(
+        self,
+        request: servicemanager.DeleteServiceRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.DeleteServiceRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for delete_service
 
         Override in a subclass to manipulate the request or metadata
@@ -235,7 +263,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_delete_service(self, response: operations_pb2.Operation) -> operations_pb2.Operation:
+    def post_delete_service(
+        self, response: operations_pb2.Operation
+    ) -> operations_pb2.Operation:
         """Post-rpc interceptor for delete_service
 
         Override in a subclass to manipulate the response
@@ -243,7 +273,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_generate_config_report(self, request: servicemanager.GenerateConfigReportRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.GenerateConfigReportRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_generate_config_report(
+        self,
+        request: servicemanager.GenerateConfigReportRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.GenerateConfigReportRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for generate_config_report
 
         Override in a subclass to manipulate the request or metadata
@@ -251,7 +286,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_generate_config_report(self, response: servicemanager.GenerateConfigReportResponse) -> servicemanager.GenerateConfigReportResponse:
+    def post_generate_config_report(
+        self, response: servicemanager.GenerateConfigReportResponse
+    ) -> servicemanager.GenerateConfigReportResponse:
         """Post-rpc interceptor for generate_config_report
 
         Override in a subclass to manipulate the response
@@ -259,7 +296,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_get_service(self, request: servicemanager.GetServiceRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.GetServiceRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_get_service(
+        self,
+        request: servicemanager.GetServiceRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.GetServiceRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for get_service
 
         Override in a subclass to manipulate the request or metadata
@@ -267,7 +309,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_get_service(self, response: resources.ManagedService) -> resources.ManagedService:
+    def post_get_service(
+        self, response: resources.ManagedService
+    ) -> resources.ManagedService:
         """Post-rpc interceptor for get_service
 
         Override in a subclass to manipulate the response
@@ -275,7 +319,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_get_service_config(self, request: servicemanager.GetServiceConfigRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.GetServiceConfigRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_get_service_config(
+        self,
+        request: servicemanager.GetServiceConfigRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.GetServiceConfigRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for get_service_config
 
         Override in a subclass to manipulate the request or metadata
@@ -283,7 +332,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_get_service_config(self, response: service_pb2.Service) -> service_pb2.Service:
+    def post_get_service_config(
+        self, response: service_pb2.Service
+    ) -> service_pb2.Service:
         """Post-rpc interceptor for get_service_config
 
         Override in a subclass to manipulate the response
@@ -291,7 +342,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_get_service_rollout(self, request: servicemanager.GetServiceRolloutRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.GetServiceRolloutRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_get_service_rollout(
+        self,
+        request: servicemanager.GetServiceRolloutRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.GetServiceRolloutRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for get_service_rollout
 
         Override in a subclass to manipulate the request or metadata
@@ -299,7 +355,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_get_service_rollout(self, response: resources.Rollout) -> resources.Rollout:
+    def post_get_service_rollout(
+        self, response: resources.Rollout
+    ) -> resources.Rollout:
         """Post-rpc interceptor for get_service_rollout
 
         Override in a subclass to manipulate the response
@@ -307,7 +365,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_list_service_configs(self, request: servicemanager.ListServiceConfigsRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.ListServiceConfigsRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_list_service_configs(
+        self,
+        request: servicemanager.ListServiceConfigsRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.ListServiceConfigsRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for list_service_configs
 
         Override in a subclass to manipulate the request or metadata
@@ -315,7 +378,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_list_service_configs(self, response: servicemanager.ListServiceConfigsResponse) -> servicemanager.ListServiceConfigsResponse:
+    def post_list_service_configs(
+        self, response: servicemanager.ListServiceConfigsResponse
+    ) -> servicemanager.ListServiceConfigsResponse:
         """Post-rpc interceptor for list_service_configs
 
         Override in a subclass to manipulate the response
@@ -323,7 +388,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_list_service_rollouts(self, request: servicemanager.ListServiceRolloutsRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.ListServiceRolloutsRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_list_service_rollouts(
+        self,
+        request: servicemanager.ListServiceRolloutsRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.ListServiceRolloutsRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for list_service_rollouts
 
         Override in a subclass to manipulate the request or metadata
@@ -331,7 +401,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_list_service_rollouts(self, response: servicemanager.ListServiceRolloutsResponse) -> servicemanager.ListServiceRolloutsResponse:
+    def post_list_service_rollouts(
+        self, response: servicemanager.ListServiceRolloutsResponse
+    ) -> servicemanager.ListServiceRolloutsResponse:
         """Post-rpc interceptor for list_service_rollouts
 
         Override in a subclass to manipulate the response
@@ -339,7 +411,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_list_services(self, request: servicemanager.ListServicesRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.ListServicesRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_list_services(
+        self,
+        request: servicemanager.ListServicesRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.ListServicesRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for list_services
 
         Override in a subclass to manipulate the request or metadata
@@ -347,7 +424,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_list_services(self, response: servicemanager.ListServicesResponse) -> servicemanager.ListServicesResponse:
+    def post_list_services(
+        self, response: servicemanager.ListServicesResponse
+    ) -> servicemanager.ListServicesResponse:
         """Post-rpc interceptor for list_services
 
         Override in a subclass to manipulate the response
@@ -355,7 +434,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_submit_config_source(self, request: servicemanager.SubmitConfigSourceRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.SubmitConfigSourceRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_submit_config_source(
+        self,
+        request: servicemanager.SubmitConfigSourceRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.SubmitConfigSourceRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for submit_config_source
 
         Override in a subclass to manipulate the request or metadata
@@ -363,7 +447,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_submit_config_source(self, response: operations_pb2.Operation) -> operations_pb2.Operation:
+    def post_submit_config_source(
+        self, response: operations_pb2.Operation
+    ) -> operations_pb2.Operation:
         """Post-rpc interceptor for submit_config_source
 
         Override in a subclass to manipulate the response
@@ -371,7 +457,12 @@ class ServiceManagerRestInterceptor:
         it is returned to user code.
         """
         return response
-    def pre_undelete_service(self, request: servicemanager.UndeleteServiceRequest, metadata: Sequence[Tuple[str, str]]) -> Tuple[servicemanager.UndeleteServiceRequest, Sequence[Tuple[str, str]]]:
+
+    def pre_undelete_service(
+        self,
+        request: servicemanager.UndeleteServiceRequest,
+        metadata: Sequence[Tuple[str, str]],
+    ) -> Tuple[servicemanager.UndeleteServiceRequest, Sequence[Tuple[str, str]]]:
         """Pre-rpc interceptor for undelete_service
 
         Override in a subclass to manipulate the request or metadata
@@ -379,7 +470,9 @@ class ServiceManagerRestInterceptor:
         """
         return request, metadata
 
-    def post_undelete_service(self, response: operations_pb2.Operation) -> operations_pb2.Operation:
+    def post_undelete_service(
+        self, response: operations_pb2.Operation
+    ) -> operations_pb2.Operation:
         """Post-rpc interceptor for undelete_service
 
         Override in a subclass to manipulate the response
@@ -410,20 +503,21 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
     """
 
-    def __init__(self, *,
-            host: str = 'servicemanagement.googleapis.com',
-            credentials: Optional[ga_credentials.Credentials] = None,
-            credentials_file: Optional[str] = None,
-            scopes: Optional[Sequence[str]] = None,
-            client_cert_source_for_mtls: Optional[Callable[[
-                ], Tuple[bytes, bytes]]] = None,
-            quota_project_id: Optional[str] = None,
-            client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
-            always_use_jwt_access: Optional[bool] = False,
-            url_scheme: str = 'https',
-            interceptor: Optional[ServiceManagerRestInterceptor] = None,
-            api_audience: Optional[str] = None,
-            ) -> None:
+    def __init__(
+        self,
+        *,
+        host: str = "servicemanagement.googleapis.com",
+        credentials: Optional[ga_credentials.Credentials] = None,
+        credentials_file: Optional[str] = None,
+        scopes: Optional[Sequence[str]] = None,
+        client_cert_source_for_mtls: Optional[Callable[[], Tuple[bytes, bytes]]] = None,
+        quota_project_id: Optional[str] = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
+        always_use_jwt_access: Optional[bool] = False,
+        url_scheme: str = "https",
+        interceptor: Optional[ServiceManagerRestInterceptor] = None,
+        api_audience: Optional[str] = None,
+    ) -> None:
         """Instantiate the transport.
 
         Args:
@@ -462,7 +556,9 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         # credentials object
         maybe_url_match = re.match("^(?P<scheme>http(?:s)?://)?(?P<host>.*)$", host)
         if maybe_url_match is None:
-            raise ValueError(f"Unexpected hostname structure: {host}")  # pragma: NO COVER
+            raise ValueError(
+                f"Unexpected hostname structure: {host}"
+            )  # pragma: NO COVER
 
         url_match_items = maybe_url_match.groupdict()
 
@@ -473,10 +569,11 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
             credentials=credentials,
             client_info=client_info,
             always_use_jwt_access=always_use_jwt_access,
-            api_audience=api_audience
+            api_audience=api_audience,
         )
         self._session = AuthorizedSession(
-            self._credentials, default_host=self.DEFAULT_HOST)
+            self._credentials, default_host=self.DEFAULT_HOST
+        )
         self._operations_client: Optional[operations_v1.AbstractOperationsClient] = None
         if client_cert_source_for_mtls:
             self._session.configure_mtls_channel(client_cert_source_for_mtls)
@@ -492,18 +589,20 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         """
         # Only create a new client if we do not already have one.
         if self._operations_client is None:
-            http_options: Dict[str, List[Dict[str, str]]] = {
-            }
+            http_options: Dict[str, List[Dict[str, str]]] = {}
 
             rest_transport = operations_v1.OperationsRestTransport(
-                    host=self._host,
-                    # use the credentials which are saved
-                    credentials=self._credentials,
-                    scopes=self._scopes,
-                    http_options=http_options,
-                    path_prefix="v1")
+                host=self._host,
+                # use the credentials which are saved
+                credentials=self._credentials,
+                scopes=self._scopes,
+                http_options=http_options,
+                path_prefix="v1",
+            )
 
-            self._operations_client = operations_v1.AbstractOperationsClient(transport=rest_transport)
+            self._operations_client = operations_v1.AbstractOperationsClient(
+                transport=rest_transport
+            )
 
         # Return the client from cache.
         return self._operations_client
@@ -512,19 +611,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("CreateService")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.CreateServiceRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> operations_pb2.Operation:
+        def __call__(
+            self,
+            request: servicemanager.CreateServiceRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> operations_pb2.Operation:
             r"""Call the create service method over HTTP.
 
             Args:
@@ -546,11 +650,12 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services',
-                'body': 'service',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services",
+                    "body": "service",
+                },
             ]
             request, metadata = self._interceptor.pre_create_service(request, metadata)
             pb_request = servicemanager.CreateServiceRequest.pb(request)
@@ -559,33 +664,35 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
             # Jsonify the request body
 
             body = json_format.MessageToJson(
-                transcoded_request['body'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True
-            )
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
-
-            # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
+                transcoded_request["body"],
                 including_default_value_fields=False,
                 use_integers_for_enums=True,
-            ))
+            )
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
+
+            # Jsonify the query params
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
                 data=body,
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -602,19 +709,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("CreateServiceConfig")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.CreateServiceConfigRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> service_pb2.Service:
+        def __call__(
+            self,
+            request: servicemanager.CreateServiceConfigRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> service_pb2.Service:
             r"""Call the create service config method over HTTP.
 
             Args:
@@ -670,46 +782,51 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services/{service_name}/configs',
-                'body': 'service_config',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services/{service_name}/configs",
+                    "body": "service_config",
+                },
             ]
-            request, metadata = self._interceptor.pre_create_service_config(request, metadata)
+            request, metadata = self._interceptor.pre_create_service_config(
+                request, metadata
+            )
             pb_request = servicemanager.CreateServiceConfigRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
             # Jsonify the request body
 
             body = json_format.MessageToJson(
-                transcoded_request['body'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True
-            )
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
-
-            # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
+                transcoded_request["body"],
                 including_default_value_fields=False,
                 use_integers_for_enums=True,
-            ))
+            )
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
+
+            # Jsonify the query params
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
                 data=body,
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -728,19 +845,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("CreateServiceRollout")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.CreateServiceRolloutRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> operations_pb2.Operation:
+        def __call__(
+            self,
+            request: servicemanager.CreateServiceRolloutRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> operations_pb2.Operation:
             r"""Call the create service rollout method over HTTP.
 
             Args:
@@ -762,46 +884,51 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services/{service_name}/rollouts',
-                'body': 'rollout',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services/{service_name}/rollouts",
+                    "body": "rollout",
+                },
             ]
-            request, metadata = self._interceptor.pre_create_service_rollout(request, metadata)
+            request, metadata = self._interceptor.pre_create_service_rollout(
+                request, metadata
+            )
             pb_request = servicemanager.CreateServiceRolloutRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
             # Jsonify the request body
 
             body = json_format.MessageToJson(
-                transcoded_request['body'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True
-            )
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
-
-            # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
+                transcoded_request["body"],
                 including_default_value_fields=False,
                 use_integers_for_enums=True,
-            ))
+            )
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
+
+            # Jsonify the query params
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
                 data=body,
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -818,19 +945,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("DeleteService")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.DeleteServiceRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> operations_pb2.Operation:
+        def __call__(
+            self,
+            request: servicemanager.DeleteServiceRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> operations_pb2.Operation:
             r"""Call the delete service method over HTTP.
 
             Args:
@@ -852,37 +984,40 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'delete',
-                'uri': '/v1/services/{service_name}',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "delete",
+                    "uri": "/v1/services/{service_name}",
+                },
             ]
             request, metadata = self._interceptor.pre_delete_service(request, metadata)
             pb_request = servicemanager.DeleteServiceRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -899,19 +1034,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("GenerateConfigReport")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.GenerateConfigReportRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> servicemanager.GenerateConfigReportResponse:
+        def __call__(
+            self,
+            request: servicemanager.GenerateConfigReportRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> servicemanager.GenerateConfigReportResponse:
             r"""Call the generate config report method over HTTP.
 
             Args:
@@ -932,46 +1072,51 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services:generateConfigReport',
-                'body': '*',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services:generateConfigReport",
+                    "body": "*",
+                },
             ]
-            request, metadata = self._interceptor.pre_generate_config_report(request, metadata)
+            request, metadata = self._interceptor.pre_generate_config_report(
+                request, metadata
+            )
             pb_request = servicemanager.GenerateConfigReportRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
             # Jsonify the request body
 
             body = json_format.MessageToJson(
-                transcoded_request['body'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True
-            )
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
-
-            # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
+                transcoded_request["body"],
                 including_default_value_fields=False,
                 use_integers_for_enums=True,
-            ))
+            )
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
+
+            # Jsonify the query params
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
                 data=body,
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -990,19 +1135,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("GetService")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.GetServiceRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> resources.ManagedService:
+        def __call__(
+            self,
+            request: servicemanager.GetServiceRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> resources.ManagedService:
             r"""Call the get service method over HTTP.
 
             Args:
@@ -1022,37 +1172,40 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}",
+                },
             ]
             request, metadata = self._interceptor.pre_get_service(request, metadata)
             pb_request = servicemanager.GetServiceRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1071,19 +1224,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("GetServiceConfig")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.GetServiceConfigRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> service_pb2.Service:
+        def __call__(
+            self,
+            request: servicemanager.GetServiceConfigRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> service_pb2.Service:
             r"""Call the get service config method over HTTP.
 
             Args:
@@ -1139,41 +1297,46 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}/configs/{config_id}',
-            },
-{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}/config',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}/configs/{config_id}",
+                },
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}/config",
+                },
             ]
-            request, metadata = self._interceptor.pre_get_service_config(request, metadata)
+            request, metadata = self._interceptor.pre_get_service_config(
+                request, metadata
+            )
             pb_request = servicemanager.GetServiceConfigRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1192,19 +1355,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("GetServiceRollout")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.GetServiceRolloutRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> resources.Rollout:
+        def __call__(
+            self,
+            request: servicemanager.GetServiceRolloutRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> resources.Rollout:
             r"""Call the get service rollout method over HTTP.
 
             Args:
@@ -1229,37 +1397,42 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}/rollouts/{rollout_id}',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}/rollouts/{rollout_id}",
+                },
             ]
-            request, metadata = self._interceptor.pre_get_service_rollout(request, metadata)
+            request, metadata = self._interceptor.pre_get_service_rollout(
+                request, metadata
+            )
             pb_request = servicemanager.GetServiceRolloutRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1278,19 +1451,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("ListServiceConfigs")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.ListServiceConfigsRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> servicemanager.ListServiceConfigsResponse:
+        def __call__(
+            self,
+            request: servicemanager.ListServiceConfigsRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> servicemanager.ListServiceConfigsResponse:
             r"""Call the list service configs method over HTTP.
 
             Args:
@@ -1311,37 +1489,42 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}/configs',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}/configs",
+                },
             ]
-            request, metadata = self._interceptor.pre_list_service_configs(request, metadata)
+            request, metadata = self._interceptor.pre_list_service_configs(
+                request, metadata
+            )
             pb_request = servicemanager.ListServiceConfigsRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1360,19 +1543,26 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("ListServiceRollouts")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-            "filter" : "",        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {
+            "filter": "",
+        }
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.ListServiceRolloutsRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> servicemanager.ListServiceRolloutsResponse:
+        def __call__(
+            self,
+            request: servicemanager.ListServiceRolloutsRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> servicemanager.ListServiceRolloutsResponse:
             r"""Call the list service rollouts method over HTTP.
 
             Args:
@@ -1393,37 +1583,42 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services/{service_name}/rollouts',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services/{service_name}/rollouts",
+                },
             ]
-            request, metadata = self._interceptor.pre_list_service_rollouts(request, metadata)
+            request, metadata = self._interceptor.pre_list_service_rollouts(
+                request, metadata
+            )
             pb_request = servicemanager.ListServiceRolloutsRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1442,12 +1637,14 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("ListServices")
 
-        def __call__(self,
-                request: servicemanager.ListServicesRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> servicemanager.ListServicesResponse:
+        def __call__(
+            self,
+            request: servicemanager.ListServicesRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> servicemanager.ListServicesResponse:
             r"""Call the list services method over HTTP.
 
             Args:
@@ -1464,36 +1661,39 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
                     Response message for ``ListServices`` method.
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'get',
-                'uri': '/v1/services',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "get",
+                    "uri": "/v1/services",
+                },
             ]
             request, metadata = self._interceptor.pre_list_services(request, metadata)
             pb_request = servicemanager.ListServicesRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1512,19 +1712,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("SubmitConfigSource")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.SubmitConfigSourceRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> operations_pb2.Operation:
+        def __call__(
+            self,
+            request: servicemanager.SubmitConfigSourceRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> operations_pb2.Operation:
             r"""Call the submit config source method over HTTP.
 
             Args:
@@ -1546,46 +1751,51 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services/{service_name}/configs:submit',
-                'body': '*',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services/{service_name}/configs:submit",
+                    "body": "*",
+                },
             ]
-            request, metadata = self._interceptor.pre_submit_config_source(request, metadata)
+            request, metadata = self._interceptor.pre_submit_config_source(
+                request, metadata
+            )
             pb_request = servicemanager.SubmitConfigSourceRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
             # Jsonify the request body
 
             body = json_format.MessageToJson(
-                transcoded_request['body'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True
-            )
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
-
-            # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
+                transcoded_request["body"],
                 including_default_value_fields=False,
                 use_integers_for_enums=True,
-            ))
+            )
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
+
+            # Jsonify the query params
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
                 data=body,
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1602,19 +1812,24 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         def __hash__(self):
             return hash("UndeleteService")
 
-        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] =  {
-        }
+        __REQUIRED_FIELDS_DEFAULT_VALUES: Dict[str, str] = {}
 
         @classmethod
         def _get_unset_required_fields(cls, message_dict):
-            return {k: v for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items() if k not in message_dict}
+            return {
+                k: v
+                for k, v in cls.__REQUIRED_FIELDS_DEFAULT_VALUES.items()
+                if k not in message_dict
+            }
 
-        def __call__(self,
-                request: servicemanager.UndeleteServiceRequest, *,
-                retry: OptionalRetry=gapic_v1.method.DEFAULT,
-                timeout: Optional[float]=None,
-                metadata: Sequence[Tuple[str, str]]=(),
-                ) -> operations_pb2.Operation:
+        def __call__(
+            self,
+            request: servicemanager.UndeleteServiceRequest,
+            *,
+            retry: OptionalRetry = gapic_v1.method.DEFAULT,
+            timeout: Optional[float] = None,
+            metadata: Sequence[Tuple[str, str]] = (),
+        ) -> operations_pb2.Operation:
             r"""Call the undelete service method over HTTP.
 
             Args:
@@ -1636,37 +1851,42 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
 
             """
 
-            http_options: List[Dict[str, str]] = [{
-                'method': 'post',
-                'uri': '/v1/services/{service_name}:undelete',
-            },
+            http_options: List[Dict[str, str]] = [
+                {
+                    "method": "post",
+                    "uri": "/v1/services/{service_name}:undelete",
+                },
             ]
-            request, metadata = self._interceptor.pre_undelete_service(request, metadata)
+            request, metadata = self._interceptor.pre_undelete_service(
+                request, metadata
+            )
             pb_request = servicemanager.UndeleteServiceRequest.pb(request)
             transcoded_request = path_template.transcode(http_options, pb_request)
 
-            uri = transcoded_request['uri']
-            method = transcoded_request['method']
+            uri = transcoded_request["uri"]
+            method = transcoded_request["method"]
 
             # Jsonify the query params
-            query_params = json.loads(json_format.MessageToJson(
-                transcoded_request['query_params'],
-                including_default_value_fields=False,
-                use_integers_for_enums=True,
-            ))
+            query_params = json.loads(
+                json_format.MessageToJson(
+                    transcoded_request["query_params"],
+                    including_default_value_fields=False,
+                    use_integers_for_enums=True,
+                )
+            )
             query_params.update(self._get_unset_required_fields(query_params))
 
             query_params["$alt"] = "json;enum-encoding=int"
 
             # Send the request
             headers = dict(metadata)
-            headers['Content-Type'] = 'application/json'
+            headers["Content-Type"] = "application/json"
             response = getattr(self._session, method)(
                 "{host}{uri}".format(host=self._host, uri=uri),
                 timeout=timeout,
                 headers=headers,
                 params=rest_helpers.flatten_query_params(query_params, strict=True),
-                )
+            )
 
             # In case of error, raise the appropriate core_exceptions.GoogleAPICallError exception
             # subclass.
@@ -1680,108 +1900,121 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
             return resp
 
     @property
-    def create_service(self) -> Callable[
-            [servicemanager.CreateServiceRequest],
-            operations_pb2.Operation]:
+    def create_service(
+        self,
+    ) -> Callable[[servicemanager.CreateServiceRequest], operations_pb2.Operation]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._CreateService(self._session, self._host, self._interceptor) # type: ignore
+        return self._CreateService(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def create_service_config(self) -> Callable[
-            [servicemanager.CreateServiceConfigRequest],
-            service_pb2.Service]:
+    def create_service_config(
+        self,
+    ) -> Callable[[servicemanager.CreateServiceConfigRequest], service_pb2.Service]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._CreateServiceConfig(self._session, self._host, self._interceptor) # type: ignore
+        return self._CreateServiceConfig(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def create_service_rollout(self) -> Callable[
-            [servicemanager.CreateServiceRolloutRequest],
-            operations_pb2.Operation]:
+    def create_service_rollout(
+        self,
+    ) -> Callable[
+        [servicemanager.CreateServiceRolloutRequest], operations_pb2.Operation
+    ]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._CreateServiceRollout(self._session, self._host, self._interceptor) # type: ignore
+        return self._CreateServiceRollout(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def delete_service(self) -> Callable[
-            [servicemanager.DeleteServiceRequest],
-            operations_pb2.Operation]:
+    def delete_service(
+        self,
+    ) -> Callable[[servicemanager.DeleteServiceRequest], operations_pb2.Operation]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._DeleteService(self._session, self._host, self._interceptor) # type: ignore
+        return self._DeleteService(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def generate_config_report(self) -> Callable[
-            [servicemanager.GenerateConfigReportRequest],
-            servicemanager.GenerateConfigReportResponse]:
+    def generate_config_report(
+        self,
+    ) -> Callable[
+        [servicemanager.GenerateConfigReportRequest],
+        servicemanager.GenerateConfigReportResponse,
+    ]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._GenerateConfigReport(self._session, self._host, self._interceptor) # type: ignore
+        return self._GenerateConfigReport(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def get_service(self) -> Callable[
-            [servicemanager.GetServiceRequest],
-            resources.ManagedService]:
+    def get_service(
+        self,
+    ) -> Callable[[servicemanager.GetServiceRequest], resources.ManagedService]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._GetService(self._session, self._host, self._interceptor) # type: ignore
+        return self._GetService(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def get_service_config(self) -> Callable[
-            [servicemanager.GetServiceConfigRequest],
-            service_pb2.Service]:
+    def get_service_config(
+        self,
+    ) -> Callable[[servicemanager.GetServiceConfigRequest], service_pb2.Service]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._GetServiceConfig(self._session, self._host, self._interceptor) # type: ignore
+        return self._GetServiceConfig(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def get_service_rollout(self) -> Callable[
-            [servicemanager.GetServiceRolloutRequest],
-            resources.Rollout]:
+    def get_service_rollout(
+        self,
+    ) -> Callable[[servicemanager.GetServiceRolloutRequest], resources.Rollout]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._GetServiceRollout(self._session, self._host, self._interceptor) # type: ignore
+        return self._GetServiceRollout(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def list_service_configs(self) -> Callable[
-            [servicemanager.ListServiceConfigsRequest],
-            servicemanager.ListServiceConfigsResponse]:
+    def list_service_configs(
+        self,
+    ) -> Callable[
+        [servicemanager.ListServiceConfigsRequest],
+        servicemanager.ListServiceConfigsResponse,
+    ]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._ListServiceConfigs(self._session, self._host, self._interceptor) # type: ignore
+        return self._ListServiceConfigs(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def list_service_rollouts(self) -> Callable[
-            [servicemanager.ListServiceRolloutsRequest],
-            servicemanager.ListServiceRolloutsResponse]:
+    def list_service_rollouts(
+        self,
+    ) -> Callable[
+        [servicemanager.ListServiceRolloutsRequest],
+        servicemanager.ListServiceRolloutsResponse,
+    ]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._ListServiceRollouts(self._session, self._host, self._interceptor) # type: ignore
+        return self._ListServiceRollouts(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def list_services(self) -> Callable[
-            [servicemanager.ListServicesRequest],
-            servicemanager.ListServicesResponse]:
+    def list_services(
+        self,
+    ) -> Callable[
+        [servicemanager.ListServicesRequest], servicemanager.ListServicesResponse
+    ]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._ListServices(self._session, self._host, self._interceptor) # type: ignore
+        return self._ListServices(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def submit_config_source(self) -> Callable[
-            [servicemanager.SubmitConfigSourceRequest],
-            operations_pb2.Operation]:
+    def submit_config_source(
+        self,
+    ) -> Callable[[servicemanager.SubmitConfigSourceRequest], operations_pb2.Operation]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._SubmitConfigSource(self._session, self._host, self._interceptor) # type: ignore
+        return self._SubmitConfigSource(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
-    def undelete_service(self) -> Callable[
-            [servicemanager.UndeleteServiceRequest],
-            operations_pb2.Operation]:
+    def undelete_service(
+        self,
+    ) -> Callable[[servicemanager.UndeleteServiceRequest], operations_pb2.Operation]:
         # The return type is fine, but mypy isn't sophisticated enough to determine what's going on here.
         # In C++ this would require a dynamic_cast
-        return self._UndeleteService(self._session, self._host, self._interceptor) # type: ignore
+        return self._UndeleteService(self._session, self._host, self._interceptor)  # type: ignore
 
     @property
     def kind(self) -> str:
@@ -1791,6 +2024,4 @@ class ServiceManagerRestTransport(ServiceManagerTransport):
         self._session.close()
 
 
-__all__=(
-    'ServiceManagerRestTransport',
-)
+__all__ = ("ServiceManagerRestTransport",)
