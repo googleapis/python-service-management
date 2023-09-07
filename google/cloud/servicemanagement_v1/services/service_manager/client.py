@@ -69,7 +69,7 @@ from google.api_core import operation  # type: ignore
 from google.api_core import operation_async  # type: ignore
 from google.iam.v1 import iam_policy_pb2  # type: ignore
 from google.iam.v1 import policy_pb2  # type: ignore
-from google.longrunning import operations_pb2
+from google.longrunning import operations_pb2  # type: ignore
 from google.protobuf import any_pb2  # type: ignore
 from google.protobuf import api_pb2  # type: ignore
 from google.protobuf import empty_pb2  # type: ignore
@@ -465,6 +465,7 @@ class ServiceManagerClient(metaclass=ServiceManagerClientMeta):
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> pagers.ListServicesPager:
         r"""Lists managed services.
+
         Returns all public services. For authenticated users,
         also returns all services the calling user has
         "servicemanagement.services.get" permission for.
@@ -693,6 +694,7 @@ class ServiceManagerClient(metaclass=ServiceManagerClientMeta):
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> operation.Operation:
         r"""Creates a new managed service.
+
         A managed service is immutable, and is subject to
         mandatory 30-day data retention. You cannot move a
         service or recreate it within 30 days after deletion.

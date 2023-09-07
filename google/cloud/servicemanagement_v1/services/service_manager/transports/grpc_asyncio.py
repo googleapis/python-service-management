@@ -263,6 +263,7 @@ class ServiceManagerGrpcAsyncIOTransport(ServiceManagerTransport):
         r"""Return a callable for the list services method over gRPC.
 
         Lists managed services.
+
         Returns all public services. For authenticated users,
         also returns all services the calling user has
         "servicemanagement.services.get" permission for.
@@ -323,6 +324,7 @@ class ServiceManagerGrpcAsyncIOTransport(ServiceManagerTransport):
         r"""Return a callable for the create service method over gRPC.
 
         Creates a new managed service.
+
         A managed service is immutable, and is subject to
         mandatory 30-day data retention. You cannot move a
         service or recreate it within 30 days after deletion.
