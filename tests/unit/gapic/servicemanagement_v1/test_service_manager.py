@@ -4430,8 +4430,9 @@ def test_list_services_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServicesResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServicesResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -4547,8 +4548,9 @@ def test_list_services_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServicesResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServicesResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -4670,8 +4672,9 @@ def test_get_service_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = resources.ManagedService.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = resources.ManagedService.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -4747,8 +4750,9 @@ def test_get_service_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = resources.ManagedService.pb(return_value)
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            # Convert return value to protobuf type
+            return_value = resources.ManagedService.pb(return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -4873,8 +4877,9 @@ def test_get_service_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = resources.ManagedService.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = resources.ManagedService.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -4929,6 +4934,70 @@ def test_create_service_rest(request_type):
         "service_name": "service_name_value",
         "producer_project_id": "producer_project_id_value",
     }
+    # The version of a generated dependency at test runtime may differ from the version used during generation.
+    # Delete any fields which are not present in the current runtime dependency
+    # See https://github.com/googleapis/gapic-generator-python/issues/1748
+
+    # Determine if the message type is proto-plus or protobuf
+    test_field = servicemanager.CreateServiceRequest.meta.fields["service"]
+
+    def get_message_fields(field):
+        # Given a field which is a message (composite type), return a list with
+        # all the fields of the message.
+        # If the field is not a composite type, return an empty list.
+        message_fields = []
+
+        if hasattr(field, "message") and field.message:
+            is_field_type_proto_plus_type = not hasattr(field.message, "DESCRIPTOR")
+
+            if is_field_type_proto_plus_type:
+                message_fields = field.message.meta.fields.values()
+            else:
+                message_fields = field.message.DESCRIPTOR.fields
+        return message_fields
+
+    runtime_nested_fields = [
+        (field.name, nested_field.name)
+        for field in get_message_fields(test_field)
+        for nested_field in get_message_fields(field)
+    ]
+
+    subfields_not_in_runtime = []
+
+    # For each item in the sample request, create a list of sub fields which are not present at runtime
+    for field, value in request_init["service"].items():
+        result = None
+        is_repeated = False
+        # For repeated fields
+        if isinstance(value, list) and len(value):
+            is_repeated = True
+            result = value[0]
+        # For fields where the type is another message
+        if isinstance(value, dict):
+            result = value
+
+        if result and hasattr(result, "keys"):
+            for subfield in result.keys():
+                if (field, subfield) not in runtime_nested_fields:
+                    subfields_not_in_runtime.append(
+                        {
+                            "field": field,
+                            "subfield": subfield,
+                            "is_repeated": is_repeated,
+                        }
+                    )
+
+    # Remove fields from the sample request which are not present in the runtime version of the dependency
+    for subfield_to_delete in subfields_not_in_runtime:
+        field = subfield_to_delete.get("field")
+        field_repeated = subfield_to_delete.get("is_repeated")
+        subfield = subfield_to_delete.get("subfield")
+        if subfield:
+            if field_repeated:
+                for i in range(0, len(request_init["service"][field])):
+                    del request_init["service"][field][i][subfield]
+            else:
+                del request_init["service"][field][subfield]
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a response.
@@ -5098,10 +5167,6 @@ def test_create_service_rest_bad_request(
 
     # send a request that will satisfy transcoding
     request_init = {}
-    request_init["service"] = {
-        "service_name": "service_name_value",
-        "producer_project_id": "producer_project_id_value",
-    }
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a BadRequest error.
@@ -5724,8 +5789,9 @@ def test_list_service_configs_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -5807,8 +5873,9 @@ def test_list_service_configs_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            # Convert return value to protobuf type
+            return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -5941,8 +6008,9 @@ def test_list_service_configs_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServiceConfigsResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -6065,8 +6133,7 @@ def test_get_service_config_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = return_value
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -6150,8 +6217,7 @@ def test_get_service_config_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = return_value
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -6284,8 +6350,7 @@ def test_get_service_config_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = return_value
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -6708,6 +6773,70 @@ def test_create_service_config_rest(request_type):
         },
         "config_version": {"value": 541},
     }
+    # The version of a generated dependency at test runtime may differ from the version used during generation.
+    # Delete any fields which are not present in the current runtime dependency
+    # See https://github.com/googleapis/gapic-generator-python/issues/1748
+
+    # Determine if the message type is proto-plus or protobuf
+    test_field = servicemanager.CreateServiceConfigRequest.meta.fields["service_config"]
+
+    def get_message_fields(field):
+        # Given a field which is a message (composite type), return a list with
+        # all the fields of the message.
+        # If the field is not a composite type, return an empty list.
+        message_fields = []
+
+        if hasattr(field, "message") and field.message:
+            is_field_type_proto_plus_type = not hasattr(field.message, "DESCRIPTOR")
+
+            if is_field_type_proto_plus_type:
+                message_fields = field.message.meta.fields.values()
+            else:
+                message_fields = field.message.DESCRIPTOR.fields
+        return message_fields
+
+    runtime_nested_fields = [
+        (field.name, nested_field.name)
+        for field in get_message_fields(test_field)
+        for nested_field in get_message_fields(field)
+    ]
+
+    subfields_not_in_runtime = []
+
+    # For each item in the sample request, create a list of sub fields which are not present at runtime
+    for field, value in request_init["service_config"].items():
+        result = None
+        is_repeated = False
+        # For repeated fields
+        if isinstance(value, list) and len(value):
+            is_repeated = True
+            result = value[0]
+        # For fields where the type is another message
+        if isinstance(value, dict):
+            result = value
+
+        if result and hasattr(result, "keys"):
+            for subfield in result.keys():
+                if (field, subfield) not in runtime_nested_fields:
+                    subfields_not_in_runtime.append(
+                        {
+                            "field": field,
+                            "subfield": subfield,
+                            "is_repeated": is_repeated,
+                        }
+                    )
+
+    # Remove fields from the sample request which are not present in the runtime version of the dependency
+    for subfield_to_delete in subfields_not_in_runtime:
+        field = subfield_to_delete.get("field")
+        field_repeated = subfield_to_delete.get("is_repeated")
+        subfield = subfield_to_delete.get("subfield")
+        if subfield:
+            if field_repeated:
+                for i in range(0, len(request_init["service_config"][field])):
+                    del request_init["service_config"][field][i][subfield]
+            else:
+                del request_init["service_config"][field][subfield]
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a response.
@@ -6723,8 +6852,7 @@ def test_create_service_config_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = return_value
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -6803,8 +6931,7 @@ def test_create_service_config_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = return_value
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -6898,374 +7025,6 @@ def test_create_service_config_rest_bad_request(
 
     # send a request that will satisfy transcoding
     request_init = {"service_name": "sample1"}
-    request_init["service_config"] = {
-        "name": "name_value",
-        "title": "title_value",
-        "producer_project_id": "producer_project_id_value",
-        "id": "id_value",
-        "apis": [
-            {
-                "name": "name_value",
-                "methods": [
-                    {
-                        "name": "name_value",
-                        "request_type_url": "request_type_url_value",
-                        "request_streaming": True,
-                        "response_type_url": "response_type_url_value",
-                        "response_streaming": True,
-                        "options": [
-                            {
-                                "name": "name_value",
-                                "value": {
-                                    "type_url": "type.googleapis.com/google.protobuf.Duration",
-                                    "value": b"\x08\x0c\x10\xdb\x07",
-                                },
-                            }
-                        ],
-                        "syntax": 1,
-                    }
-                ],
-                "options": {},
-                "version": "version_value",
-                "source_context": {"file_name": "file_name_value"},
-                "mixins": [{"name": "name_value", "root": "root_value"}],
-                "syntax": 1,
-            }
-        ],
-        "types": [
-            {
-                "name": "name_value",
-                "fields": [
-                    {
-                        "kind": 1,
-                        "cardinality": 1,
-                        "number": 649,
-                        "name": "name_value",
-                        "type_url": "type.googleapis.com/google.protobuf.Empty",
-                        "oneof_index": 1166,
-                        "packed": True,
-                        "options": {},
-                        "json_name": "json_name_value",
-                        "default_value": "default_value_value",
-                    }
-                ],
-                "oneofs": ["oneofs_value1", "oneofs_value2"],
-                "options": {},
-                "source_context": {},
-                "syntax": 1,
-                "edition": "edition_value",
-            }
-        ],
-        "enums": [
-            {
-                "name": "name_value",
-                "enumvalue": [{"name": "name_value", "number": 649, "options": {}}],
-                "options": {},
-                "source_context": {},
-                "syntax": 1,
-                "edition": "edition_value",
-            }
-        ],
-        "documentation": {
-            "summary": "summary_value",
-            "pages": [
-                {"name": "name_value", "content": "content_value", "subpages": {}}
-            ],
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "description": "description_value",
-                    "deprecation_description": "deprecation_description_value",
-                }
-            ],
-            "documentation_root_url": "documentation_root_url_value",
-            "service_root_url": "service_root_url_value",
-            "overview": "overview_value",
-        },
-        "backend": {
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "address": "address_value",
-                    "deadline": 0.8220000000000001,
-                    "min_deadline": 0.1241,
-                    "operation_deadline": 0.1894,
-                    "path_translation": 1,
-                    "jwt_audience": "jwt_audience_value",
-                    "disable_auth": True,
-                    "protocol": "protocol_value",
-                    "overrides_by_request_protocol": {},
-                }
-            ]
-        },
-        "http": {
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "get": "get_value",
-                    "put": "put_value",
-                    "post": "post_value",
-                    "delete": "delete_value",
-                    "patch": "patch_value",
-                    "custom": {"kind": "kind_value", "path": "path_value"},
-                    "body": "body_value",
-                    "response_body": "response_body_value",
-                    "additional_bindings": {},
-                }
-            ],
-            "fully_decode_reserved_expansion": True,
-        },
-        "quota": {
-            "limits": [
-                {
-                    "name": "name_value",
-                    "description": "description_value",
-                    "default_limit": 1379,
-                    "max_limit": 964,
-                    "free_tier": 949,
-                    "duration": "duration_value",
-                    "metric": "metric_value",
-                    "unit": "unit_value",
-                    "values": {},
-                    "display_name": "display_name_value",
-                }
-            ],
-            "metric_rules": [{"selector": "selector_value", "metric_costs": {}}],
-        },
-        "authentication": {
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "oauth": {"canonical_scopes": "canonical_scopes_value"},
-                    "allow_without_credential": True,
-                    "requirements": [
-                        {
-                            "provider_id": "provider_id_value",
-                            "audiences": "audiences_value",
-                        }
-                    ],
-                }
-            ],
-            "providers": [
-                {
-                    "id": "id_value",
-                    "issuer": "issuer_value",
-                    "jwks_uri": "jwks_uri_value",
-                    "audiences": "audiences_value",
-                    "authorization_url": "authorization_url_value",
-                    "jwt_locations": [
-                        {
-                            "header": "header_value",
-                            "query": "query_value",
-                            "cookie": "cookie_value",
-                            "value_prefix": "value_prefix_value",
-                        }
-                    ],
-                }
-            ],
-        },
-        "context": {
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "requested": ["requested_value1", "requested_value2"],
-                    "provided": ["provided_value1", "provided_value2"],
-                    "allowed_request_extensions": [
-                        "allowed_request_extensions_value1",
-                        "allowed_request_extensions_value2",
-                    ],
-                    "allowed_response_extensions": [
-                        "allowed_response_extensions_value1",
-                        "allowed_response_extensions_value2",
-                    ],
-                }
-            ]
-        },
-        "usage": {
-            "requirements": ["requirements_value1", "requirements_value2"],
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "allow_unregistered_calls": True,
-                    "skip_service_control": True,
-                }
-            ],
-            "producer_notification_channel": "producer_notification_channel_value",
-        },
-        "endpoints": [
-            {
-                "name": "name_value",
-                "aliases": ["aliases_value1", "aliases_value2"],
-                "target": "target_value",
-                "allow_cors": True,
-            }
-        ],
-        "control": {
-            "environment": "environment_value",
-            "method_policies": [
-                {
-                    "selector": "selector_value",
-                    "request_policies": [
-                        {
-                            "selector": "selector_value",
-                            "resource_permission": "resource_permission_value",
-                            "resource_type": "resource_type_value",
-                        }
-                    ],
-                }
-            ],
-        },
-        "logs": [
-            {
-                "name": "name_value",
-                "labels": [
-                    {
-                        "key": "key_value",
-                        "value_type": 1,
-                        "description": "description_value",
-                    }
-                ],
-                "description": "description_value",
-                "display_name": "display_name_value",
-            }
-        ],
-        "metrics": [
-            {
-                "name": "name_value",
-                "type": "type_value",
-                "labels": {},
-                "metric_kind": 1,
-                "value_type": 1,
-                "unit": "unit_value",
-                "description": "description_value",
-                "display_name": "display_name_value",
-                "metadata": {
-                    "launch_stage": 6,
-                    "sample_period": {"seconds": 751, "nanos": 543},
-                    "ingest_delay": {},
-                },
-                "launch_stage": 6,
-                "monitored_resource_types": [
-                    "monitored_resource_types_value1",
-                    "monitored_resource_types_value2",
-                ],
-            }
-        ],
-        "monitored_resources": [
-            {
-                "name": "name_value",
-                "type": "type_value",
-                "display_name": "display_name_value",
-                "description": "description_value",
-                "labels": {},
-                "launch_stage": 6,
-            }
-        ],
-        "billing": {
-            "consumer_destinations": [
-                {
-                    "monitored_resource": "monitored_resource_value",
-                    "metrics": ["metrics_value1", "metrics_value2"],
-                }
-            ]
-        },
-        "logging": {
-            "producer_destinations": [
-                {
-                    "monitored_resource": "monitored_resource_value",
-                    "logs": ["logs_value1", "logs_value2"],
-                }
-            ],
-            "consumer_destinations": {},
-        },
-        "monitoring": {
-            "producer_destinations": [
-                {
-                    "monitored_resource": "monitored_resource_value",
-                    "metrics": ["metrics_value1", "metrics_value2"],
-                }
-            ],
-            "consumer_destinations": {},
-        },
-        "system_parameters": {
-            "rules": [
-                {
-                    "selector": "selector_value",
-                    "parameters": [
-                        {
-                            "name": "name_value",
-                            "http_header": "http_header_value",
-                            "url_query_parameter": "url_query_parameter_value",
-                        }
-                    ],
-                }
-            ]
-        },
-        "source_info": {"source_files": {}},
-        "publishing": {
-            "method_settings": [
-                {
-                    "selector": "selector_value",
-                    "long_running": {
-                        "initial_poll_delay": {},
-                        "poll_delay_multiplier": 0.22510000000000002,
-                        "max_poll_delay": {},
-                        "total_poll_timeout": {},
-                    },
-                }
-            ],
-            "new_issue_uri": "new_issue_uri_value",
-            "documentation_uri": "documentation_uri_value",
-            "api_short_name": "api_short_name_value",
-            "github_label": "github_label_value",
-            "codeowner_github_teams": [
-                "codeowner_github_teams_value1",
-                "codeowner_github_teams_value2",
-            ],
-            "doc_tag_prefix": "doc_tag_prefix_value",
-            "organization": 1,
-            "library_settings": [
-                {
-                    "version": "version_value",
-                    "launch_stage": 6,
-                    "rest_numeric_enums": True,
-                    "java_settings": {
-                        "library_package": "library_package_value",
-                        "service_class_names": {},
-                        "common": {
-                            "reference_docs_uri": "reference_docs_uri_value",
-                            "destinations": [10],
-                        },
-                    },
-                    "cpp_settings": {"common": {}},
-                    "php_settings": {"common": {}},
-                    "python_settings": {"common": {}},
-                    "node_settings": {"common": {}},
-                    "dotnet_settings": {
-                        "common": {},
-                        "renamed_services": {},
-                        "renamed_resources": {},
-                        "ignored_resources": [
-                            "ignored_resources_value1",
-                            "ignored_resources_value2",
-                        ],
-                        "forced_namespace_aliases": [
-                            "forced_namespace_aliases_value1",
-                            "forced_namespace_aliases_value2",
-                        ],
-                        "handwritten_signatures": [
-                            "handwritten_signatures_value1",
-                            "handwritten_signatures_value2",
-                        ],
-                    },
-                    "ruby_settings": {"common": {}},
-                    "go_settings": {"common": {}},
-                }
-            ],
-            "proto_reference_documentation_uri": "proto_reference_documentation_uri_value",
-        },
-        "config_version": {"value": 541},
-    }
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a BadRequest error.
@@ -7304,8 +7063,7 @@ def test_create_service_config_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = return_value
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -7644,8 +7402,9 @@ def test_list_service_rollouts_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServiceRolloutsResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServiceRolloutsResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -7735,10 +7494,9 @@ def test_list_service_rollouts_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = servicemanager.ListServiceRolloutsResponse.pb(
-                return_value
-            )
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            # Convert return value to protobuf type
+            return_value = servicemanager.ListServiceRolloutsResponse.pb(return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -7884,8 +7642,9 @@ def test_list_service_rollouts_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.ListServiceRolloutsResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.ListServiceRolloutsResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -8009,8 +7768,9 @@ def test_get_service_rollout_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = resources.Rollout.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = resources.Rollout.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -8092,8 +7852,9 @@ def test_get_service_rollout_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = resources.Rollout.pb(return_value)
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            # Convert return value to protobuf type
+            return_value = resources.Rollout.pb(return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -8225,8 +7986,9 @@ def test_get_service_rollout_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = resources.Rollout.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = resources.Rollout.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
@@ -8289,6 +8051,70 @@ def test_create_service_rollout_rest(request_type):
         "delete_service_strategy": {},
         "service_name": "service_name_value",
     }
+    # The version of a generated dependency at test runtime may differ from the version used during generation.
+    # Delete any fields which are not present in the current runtime dependency
+    # See https://github.com/googleapis/gapic-generator-python/issues/1748
+
+    # Determine if the message type is proto-plus or protobuf
+    test_field = servicemanager.CreateServiceRolloutRequest.meta.fields["rollout"]
+
+    def get_message_fields(field):
+        # Given a field which is a message (composite type), return a list with
+        # all the fields of the message.
+        # If the field is not a composite type, return an empty list.
+        message_fields = []
+
+        if hasattr(field, "message") and field.message:
+            is_field_type_proto_plus_type = not hasattr(field.message, "DESCRIPTOR")
+
+            if is_field_type_proto_plus_type:
+                message_fields = field.message.meta.fields.values()
+            else:
+                message_fields = field.message.DESCRIPTOR.fields
+        return message_fields
+
+    runtime_nested_fields = [
+        (field.name, nested_field.name)
+        for field in get_message_fields(test_field)
+        for nested_field in get_message_fields(field)
+    ]
+
+    subfields_not_in_runtime = []
+
+    # For each item in the sample request, create a list of sub fields which are not present at runtime
+    for field, value in request_init["rollout"].items():
+        result = None
+        is_repeated = False
+        # For repeated fields
+        if isinstance(value, list) and len(value):
+            is_repeated = True
+            result = value[0]
+        # For fields where the type is another message
+        if isinstance(value, dict):
+            result = value
+
+        if result and hasattr(result, "keys"):
+            for subfield in result.keys():
+                if (field, subfield) not in runtime_nested_fields:
+                    subfields_not_in_runtime.append(
+                        {
+                            "field": field,
+                            "subfield": subfield,
+                            "is_repeated": is_repeated,
+                        }
+                    )
+
+    # Remove fields from the sample request which are not present in the runtime version of the dependency
+    for subfield_to_delete in subfields_not_in_runtime:
+        field = subfield_to_delete.get("field")
+        field_repeated = subfield_to_delete.get("is_repeated")
+        subfield = subfield_to_delete.get("subfield")
+        if subfield:
+            if field_repeated:
+                for i in range(0, len(request_init["rollout"][field])):
+                    del request_init["rollout"][field][i][subfield]
+            else:
+                del request_init["rollout"][field][subfield]
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a response.
@@ -8471,15 +8297,6 @@ def test_create_service_rollout_rest_bad_request(
 
     # send a request that will satisfy transcoding
     request_init = {"service_name": "sample1"}
-    request_init["rollout"] = {
-        "rollout_id": "rollout_id_value",
-        "create_time": {"seconds": 751, "nanos": 543},
-        "created_by": "created_by_value",
-        "status": 1,
-        "traffic_percent_strategy": {"percentages": {}},
-        "delete_service_strategy": {},
-        "service_name": "service_name_value",
-    }
     request = request_type(**request_init)
 
     # Mock the http request call within the method and fake a BadRequest error.
@@ -8583,8 +8400,9 @@ def test_generate_config_report_rest(request_type):
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.GenerateConfigReportResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.GenerateConfigReportResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
 
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
@@ -8656,10 +8474,9 @@ def test_generate_config_report_rest_required_fields(
             response_value = Response()
             response_value.status_code = 200
 
-            pb_return_value = servicemanager.GenerateConfigReportResponse.pb(
-                return_value
-            )
-            json_return_value = json_format.MessageToJson(pb_return_value)
+            # Convert return value to protobuf type
+            return_value = servicemanager.GenerateConfigReportResponse.pb(return_value)
+            json_return_value = json_format.MessageToJson(return_value)
 
             response_value._content = json_return_value.encode("UTF-8")
             req.return_value = response_value
@@ -8789,8 +8606,9 @@ def test_generate_config_report_rest_flattened():
         # Wrap the value into a proper Response obj
         response_value = Response()
         response_value.status_code = 200
-        pb_return_value = servicemanager.GenerateConfigReportResponse.pb(return_value)
-        json_return_value = json_format.MessageToJson(pb_return_value)
+        # Convert return value to protobuf type
+        return_value = servicemanager.GenerateConfigReportResponse.pb(return_value)
+        json_return_value = json_format.MessageToJson(return_value)
         response_value._content = json_return_value.encode("UTF-8")
         req.return_value = response_value
 
